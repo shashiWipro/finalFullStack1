@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand mb-0 h1" [routerLink]="null">Surveys Analysis</a>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav mr-auto"></ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <i (click)="exportToCsv()" class="fa fa-download" style="cursor:pointer;color: white;"
+                    title="Download"></i>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div>
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>

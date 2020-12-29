@@ -1,0 +1,18 @@
+<div class="h-100" style="background-color: #f6f3f3;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand mb-0 h1" [routerLink]="null">Campaign Management System</a>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/listSurveys']">Take Survey</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" [routerLink]="['/login']">Manage Surveys</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container-fluid" style="margin-top: 10px;">
+        <router-outlet></router-outlet>
+    </div>
+</div>

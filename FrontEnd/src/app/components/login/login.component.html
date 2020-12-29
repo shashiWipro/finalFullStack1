@@ -1,0 +1,32 @@
+<h5>
+    LogIn
+</h5>
+<form [formGroup]="logInForm">
+    <div class="row form-group">
+        <div class="col-2">Username</div>
+        <div class="col-2">
+            <input type="text" formControlName="userName" class="form-control" />
+            <div style="font-size: 80%;color: #dc3545;"
+            *ngIf="logInForm.controls['userName'].touched && logInForm.controls['userName'].hasError('required')">
+            Username is required
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-2">Password</div>
+        <div class="col-2">
+            <input type="password" formControlName="password" class="form-control" />
+            <div style="font-size: 80%;color: #dc3545;"
+            *ngIf="logInForm.controls['password'].touched && logInForm.controls['password'].hasError('required')">
+            Password is required
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-2"></div>
+        <div class="col-3">
+            <button type="button" [disabled]="logInForm.invalid" class="btn btn-primary" (click)="login()">Submit</button>
+            <div *ngIf="showError" style="font-size: 80%;color: #dc3545;">Invalid credentails</div>
+        </div>
+    </div>
+</form>

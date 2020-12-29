@@ -1,0 +1,79 @@
+<h5>
+    <small>Survey:-</small>{{surveyForm.value.surveyName}}
+</h5>
+<form [formGroup]="surveyForm">
+    <div formArrayName="questions">
+        <div *ngFor="let question of getQuestionsFormArray().controls; let i=index">
+            <form [formGroup]="question">
+                <div class="row" style="margin-bottom: 5px;margin-top: 15px;">
+                    <div class="col">
+                        {{question.value.question}}
+                        <span *ngIf="question.value.isMandatory" style="color: #dc3545;">*</span>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        <ng-container *ngIf="question.value.responseType === 'SL'">
+                            <input type="text" formControlName="answer" class="form-control" />
+                            <div style="font-size: 80%;color: #dc3545;"
+                                *ngIf="question.controls['answer'].touched && question.controls['answer'].hasError('required')">
+                                This question is mandatory
+                            </div>
+                            <div style="font-size: 80%;color: #dc3545;"
+                                *ngIf="question.controls['answer'].touched && question.controls['answer'].hasError('pattern')">
+                                <ng-container *ngIf="question.value.validation==='AO'">
+                                    Only Alphabets allowed
+                                </ng-container>
+                                <ng-container *ngIf="question.value.validation==='AN'">
+                                    Only Alphanumeric allowed
+                                </ng-container>
+                                <ng-container *ngIf="question.value.validation==='NO'">
+                                    Only Numbers allowed
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="question.value.responseType === 'ML'">
+                            <textarea rows="5" formControlName="answer" class="form-control">
+                            </textarea>
+                            <div style="font-size: 80%;color: #dc3545;"
+                                *ngIf="question.controls['answer'].touched && question.controls['answer'].hasError('required')">
+                                This question is mandatory
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="question.value.responseType === 'SSO'">
+                            <div class="row">
+                                <div class="col" *ngFor="let option of question.value.options">
+                                    <label class="radio-inline"><input type="radio" formControlName="answer"
+                                            name="answer" [value]="option" checked>{{option}}</label>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="question.value.responseType === 'MSO'">
+                            <div class="row">
+                                <div class="col" *ngFor="let option of question.value.options">
+                                    <label class="radio-inline"><input type="checkbox"
+                                            (click)="checkBoxClick(option, question)" name="answer"
+                                            [value]="option">{{option}}</label>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="question.value.responseType === 'DT'">
+                            <div class="row">
+                                <div class="col-4">
+                                    <input type="date" class="form-control" formControlName="answer" />
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <div class="col-5">
+    </div>
+    <div class="col-2">
+        <button type="button" [disabled]="surveyForm.invalid" class="btn btn-primary" (click)="submit()">Submit</button>
+    </div>
+</div>

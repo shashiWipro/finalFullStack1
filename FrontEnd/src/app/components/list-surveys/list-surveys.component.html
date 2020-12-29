@@ -1,0 +1,32 @@
+
+<br>
+<h5>
+    Surveys
+</h5>
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Survey Name</th>
+            <th scope="col">No. of Questions</th>
+            <th scope="col">Valid Till</th>
+            <th scope="col">Survey Link</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let survey of surveyList;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{survey.surveyName}}</td>
+                <td>{{survey.questions.length}}</td>
+                <td>{{survey.validTill | date : 'dd-MM-yyyy'}}</td>
+                <td>
+                    <a [routerLink]="['../takeSurvey/' + survey.id]">Take survey</a>
+                    <!-- <span (click)="copyData(survey.id)" style="cursor:pointer" title="Click to copy link">{{takeSurveyLink + survey.id}}</span>
+                    <span id="copyContainer"></span> -->
+                </td>
+            </tr>
+            <tr *ngIf="surveyList.length === 0">
+                <th scope="row">No Survey available</th>
+            </tr>
+        </tbody>
+    </table>

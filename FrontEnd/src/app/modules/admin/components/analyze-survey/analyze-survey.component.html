@@ -1,0 +1,33 @@
+
+<h5>
+    Surveys
+</h5>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Survey Name</th>
+        <th scope="col">No. of Questions</th>
+        <th scope="col">Status</th>
+        <th scope="col">Valid Till</th>
+        <th scope="col">
+            <i (click)="showGraph()" class="fa fa-bar-chart" style="cursor:pointer" title="Chart Analysis"></i>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let survey of surveys;let i=index">
+            <th scope="row">{{i+1}}</th>
+            <td>{{survey.surveyName}}</td> 
+            <td>{{survey.questions.length}}</td>
+            <td>{{survey.status}}</td>
+            <td>{{survey.validTill | date : 'dd-MM-yyyy'}}</td>
+            <td>
+                <i (click)="analyzeSurvey(survey)" class="fa fa-search" style="margin-right:10px;cursor:pointer" title="Analyze"></i>
+            </td>
+        </tr>
+        <tr *ngIf="surveys.length === 0">
+            <th scope="row">No Surveys available to analyze</th>
+        </tr>
+    </tbody>
+</table>

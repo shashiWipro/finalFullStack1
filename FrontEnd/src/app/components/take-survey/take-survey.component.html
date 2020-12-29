@@ -1,0 +1,55 @@
+<div class="row">
+        <div class="col-4"></div>
+    <div class="col-4">
+        <ng-container *ngIf="!showSurvey">
+            <br>
+            <form [formGroup]="resultForm">
+                <div class="row form-group">
+                    <div class="col">
+                        Name
+                    </div>
+                    <div class="col">
+                        <input type="text" formControlName="name" class="form-control" />
+                        <div style="font-size: 80%;color: #dc3545;"
+                            *ngIf="resultForm.controls['name'].touched && resultForm.controls['name'].hasError('required')">
+                            Name is required
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col">
+                        Email Id
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" formControlName="emailId" />
+                        <div style="font-size: 80%;color: #dc3545;"
+                            *ngIf="resultForm.controls['emailId'].touched && resultForm.controls['emailId'].hasError('required')">
+                            Email ID is required
+                        </div>
+                        <div style="font-size: 80%;color: #dc3545;"
+                            *ngIf="resultForm.controls['emailId'].touched && resultForm.controls['emailId'].hasError('email')">
+                            Invalid Email ID
+                        </div>
+                    </div>
+                </div>
+                <div class="row form-group">
+                    <div class="col-5"></div>
+                    <div class="col">
+                        <button [disabled]="resultForm.invalid" type="submit" class="btn btn-primary" (click)="submit()">Next</button>
+                        <div style="font-size: 80%;color: #dc3545;">
+                            {{userCheckErrorMessage}}
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+</div>
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8">
+        <ng-container *ngIf="survey && showSurvey">
+            <app-survey-renderer [survey]="survey" (surveyResponse)="surveyResponse($event)"></app-survey-renderer>
+        </ng-container>
+    </div>
+</div>

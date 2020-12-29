@@ -1,0 +1,74 @@
+<h5>
+    Create Survey
+</h5>
+<form [formGroup]="adminService.surveyForm">
+    <div class="row form-group">
+        <div class="col-2">
+            Survey Name
+        </div>
+        <div class="col-2">
+            <input type="text" formControlName="surveyName" class="form-control" />
+            <div style="font-size: 80%;color: #dc3545;"
+            *ngIf="adminService.surveyForm.controls['surveyName'].touched && adminService.surveyForm.controls['surveyName'].hasError('required')">
+            Survey name is required
+            </div>
+        </div>
+        <div class="col-2">
+            Valid Till
+        </div>
+        <div class="col-2">
+            <input type="date"  class="form-control"  formControlName="validTill" />
+            <div style="font-size: 80%;color: #dc3545;" *ngIf="surveyExpireMessageflag">
+                Survey can expire in future only
+            </div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <div class="col-2">
+            Description
+        </div>
+        <div class="col-2">
+            <input type="text" formControlName="description" class="form-control" />
+            <div style="font-size: 80%;color: #dc3545;"
+            *ngIf="adminService.surveyForm.controls['description'].touched && adminService.surveyForm.controls['description'].hasError('required')">
+            Survey description is required
+            </div>
+        </div>
+    </div>
+</form>
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Question</th>
+            <th scope="col">Question Type</th>
+            <th scope="col">Validation</th>
+            <th scope="col">Options</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let que of adminService.questionsFormArray.controls;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{que.value.question}}</td>
+                <td>{{getLabelFromValue('responseType', que.value.responseType)}}</td>
+                <td>{{getLabelFromValue('validation', que.value.validation)}}</td>
+                <td>{{que.value.options.length>0?que.value.options.join(','): '-'}}</td>
+                <td>
+                    <i (click)="editQuestion(que, i)" class="fa fa-pencil" style="margin-right:10px;cursor:pointer" title="Edit"></i>
+                    <i (click)="deleteQuestion(i)" class="fa fa-trash" style="cursor:pointer" title="Delete"></i>
+                </td>
+            </tr>
+            <tr *ngIf="adminService.questionsFormArray.controls.length === 0">
+                <th scope="row">No Question added</th>
+            </tr>
+        </tbody>
+</table>
+<div class="row">
+    <div class="col-10">
+        <button type="button" class="btn btn-primary" (click)="addQuestion()">Add Question</button>
+    </div>
+    <div class="col-2">
+        <button type="button" [disabled]="adminService.surveyForm.invalid || adminService.questionsFormArray.controls.length === 0" class="btn btn-primary" (click)="submitSurvey()">Submit</button>
+    </div>
+</div>
